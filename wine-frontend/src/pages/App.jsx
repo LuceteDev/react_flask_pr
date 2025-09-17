@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import GlobalStyle from '../GlobalStyle';
 import reactLogo from '/LUCETE/Lucete_Project/wine_web_project/wine-frontend/public/imges/logo_images/react.svg';
 import viteLogo from '/LUCETE/Lucete_Project/wine_web_project/wine-frontend/public/imges/logo_images/vite.svg';
 import djangoLogo from '/LUCETE/Lucete_Project/wine_web_project/wine-frontend/public/imges/logo_images/django.svg';
@@ -17,6 +18,7 @@ function App() {
 
   return (
     <>
+      <GlobalStyle></GlobalStyle>
       <div>
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo vite" alt="Vite logo" />
@@ -33,7 +35,10 @@ function App() {
       </h1>
       <h2>Vite + React + Django</h2>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
+        <button
+          className="appjsx_btn"
+          onClick={() => setCount((count) => count + 1)}
+        >
           count is {count}
         </button>
         <br />

@@ -18,18 +18,27 @@
   object-fit: cover;
 }
 
-/* 햄버거 버튼 */
-.hamburger {
+.icon-container {
   /* 부모요소 즉 사진과 겹치게 하려고 부여하는 것 */
   position: absolute;
+  display: flex;
   top: 20px;
   right: 40px;
+  gap: 20px;
+  align-items: center;
   /* 반응형 단위 */
   font-size: 2rem;
   color: white;
   cursor: pointer;
-  /* 메뉴보다 위에 보이도록 */
-  /* z-index: 20; */
+}
+.login-icon {
+}
+.cart-icon {
+}
+/* 햄버거 버튼 */
+.hamburger {
+  font-size: 2rem;
+  cursor: pointer;
 }
 
 .menu_area {

@@ -5,7 +5,6 @@ import App from './App.jsx';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import WinePage from './WinePage.jsx';
-import Board from '../components/Board.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -17,7 +16,6 @@ createRoot(document.getElementById('root')).render(
         <Route path="/wine" element={<WinePage />} />
         {/* '/growth' 경로도 나중에 추가할 수 있습니다. */}
         {/* <Route path="/growth" element={<GrowthPage />} /> */}
-        <Route path="/board" element={<Board />}></Route>
       </Routes>
     </BrowserRouter>
   </StrictMode>
