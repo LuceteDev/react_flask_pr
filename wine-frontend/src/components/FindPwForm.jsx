@@ -18,10 +18,13 @@ const FindPwForm = ({ onClose, onFormOpen }) => {
     alert('비밀번호가 성공적으로 재설정되었습니다.');
     onClose();
   };
+  const handleModalContentClick = (e) => {
+    e.stopPropagation();
+  };
 
   return (
-    <section className="login-section">
-      <div className="section_center">
+    <section className="login-section" onClick={onClose}>
+      <div className="section_center" onClick={handleModalContentClick}>
         <button className="close-button" onClick={onClose}>
           &times;
         </button>

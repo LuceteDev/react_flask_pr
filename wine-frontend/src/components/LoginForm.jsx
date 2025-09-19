@@ -1,27 +1,43 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-// import { ReactComponent as KakaoIcon } from '../assets/kakao-chat-icon.svg'; // SVG를 컴포넌트로 불러오는 예시
-// import { ReactComponent as GoogleIcon } from '../assets/google-icon.svg'; // SVG를 컴포넌트로 불러오는 예시
 import '../css/login.css';
+import { useAuth } from '../services/AuthContext';
 
 const LoginForm = ({ onClose, onFormOpen }) => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  // 1. loginError 상태를 추가합니다. 초기값은 false
   const [loginError, setLoginError] = useState(false);
 
-  const handleSubmit = (e) => {
+  // useAuth 훅을 사용하여 login 함수를 가져옵니다.
+  const { login } = useAuth();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // 로그인 로직 (API 호출 등)
-    // 예시: 로그인 실패 시 에러 상태 업데이트
-    if (username === 'test' && password === '1234') {
-      setLoginError(false);
-      alert('로그인 성공!');
+    const success = await login({ email, password });
+    if (success) {
+      // 로그인 성공 시 모달 닫기
+      setLoginError(false); // 오류 메시지 초기화
+      onClose();
     } else {
+      // 2. 로그인 실패 시 loginError 상태를 true로 설정
       setLoginError(true);
     }
   };
+
   const handleModalContentClick = (e) => {
     e.stopPropagation();
+  };
+
+  // 3. input 값이 변경될 때 loginError를 초기화하는 함수
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    setLoginError(false);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+    setLoginError(false);
   };
 
   return (
@@ -34,21 +50,23 @@ const LoginForm = ({ onClose, onFormOpen }) => {
         <h2>Login</h2>
         <hr />
         <form onSubmit={handleSubmit}>
+          {/* loginError 상태가 true일 때만 오류 메시지 표시 */}
           {loginError && (
             <div className="login-error-message">
               로그인 실패! 아이디 또는 비밀번호를 확인하세요.
             </div>
           )}
           <div className="input-group">
-            <label htmlFor="username">이메일</label>
+            <label htmlFor="email">이메일</label>
             <input
-              type="text"
-              id="username"
-              name="username"
+              type="email"
+              id="email"
+              name="email"
               required
               placeholder="이메일을 입력하세요"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={email}
+              // 4. onChange 핸들러를 수정된 함수로 연결
+              onChange={handleEmailChange}
             />
           </div>
           <div className="input-group">
@@ -60,7 +78,8 @@ const LoginForm = ({ onClose, onFormOpen }) => {
               required
               placeholder="비밀번호를 입력하세요"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              // 5. onChange 핸들러를 수정된 함수로 연결
+              onChange={handlePasswordChange}
             />
           </div>
           <div className="login-set">
@@ -76,9 +95,7 @@ const LoginForm = ({ onClose, onFormOpen }) => {
           <a onClick={() => onFormOpen('findId')}>아이디 찾기</a> |
           <a onClick={() => onFormOpen('findPw')}>비밀번호 재설정</a>
         </div>
-        <p className="text_gp">
-          <Link to="">간편 로그인</Link>
-        </p>
+        <p className="text_gp">간편 로그인</p>
         <div className="social-login">
           <div className="so-lo">
             <a href="/auth/kakao">

@@ -20,10 +20,13 @@
 
 # CREATE DATABASE wine_db;
 
-
+# 메인 Flask 애플리케이션 파일
 from flask import Flask, jsonify, request
 from flask_mysqldb import MySQL
 from flask_cors import CORS # CORS를 위해 추가
+
+# 1. 블루프린트와 초기화 함수를 임포트합니다.
+from api.auth import auth_bp, init_app as init_auth_bp
 
 app = Flask(__name__)
 
@@ -39,25 +42,20 @@ app.config['MYSQL_CURSORCLASS'] = 'DictCursor' # 데이터를 딕셔너리 형�
 
 mysql = MySQL(app)
 
-@app.route('/api/posts', methods=['GET'])
-def get_posts():
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM posts ORDER BY created_at DESC")
-    posts_data = cur.fetchall()
-    cur.close()
-    return jsonify(posts_data)
+# ✅ React 개발 서버(5173)에서 오는 요청 허용
+CORS(app, resources={r"/auth/*": {"origins": "http://localhost:5173"}})
 
-@app.route('/api/posts', methods=['POST'])
-def create_post():
-    data = request.json
-    title = data['title']
-    content = data['content']
-    
-    cur = mysql.connection.cursor()
-    cur.execute("INSERT INTO posts(title, content) VALUES (%s, %s)", (title, content))
-    mysql.connection.commit()
-    cur.close()
-    return jsonify({"message": "게시글이 성공적으로 작성되었습니다."}), 201
+# 2. MySQL 객체를 블루프린트에 주입합니다.
+init_auth_bp(mysql)
+
+# 3. 블루프린트를 메인 앱에 등록합니다.
+# url_prefix='/api'를 사용하여 모든 API 엔드포인트가 이 접두사를 갖게 됩니다.
+app.register_blueprint(auth_bp, url_prefix='/api/auth')
+
+# 테스트용 기본 라우트
+@app.route('/')
+def hello_world():
+    return 'Hello, Flask!'
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

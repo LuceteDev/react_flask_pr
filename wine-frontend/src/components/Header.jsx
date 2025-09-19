@@ -5,12 +5,14 @@ import SignUpForm from '../components/SignUpForm.jsx';
 import FindIdForm from '../components/FindIdForm.jsx';
 import FindPwForm from '../components/FindPwForm.jsx';
 import '../css/Header.css';
+import { useAuth } from '../services/AuthContext';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
-  // const [isLoginOpen, setIsLoginOpen] = useState(false);
-  // 하나의 상태로 어떤 폼이 열려 있는지 관리합니다.
-  const [modalForm, setModalForm] = useState(null); // 'login', 'signup', 'findId', 'findPw'
+  const [modalForm, setModalForm] = useState(null);
+
+  const { isLoggedIn, logout, username } = useAuth();
+
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
@@ -22,9 +24,16 @@ const Header = () => {
   const handleFormClose = () => {
     setModalForm(null);
   };
-  // const toggleLogin = () => {
-  //   setIsLoginOpen(!isLoginOpen);
-  // };
+  const handleLoginIconClick = () => {
+    if (isLoggedIn) {
+      // 로그인 상태에서는 마이페이지/로그아웃 메뉴가 hover로 나타나므로,
+      // 아이콘 클릭 시 동작을 제거하거나 다른 페이지로 이동시킬 수 있습니다.
+      // 여기서는 폼을 열지 않도록 수정합니다.
+      return;
+    } else {
+      handleFormOpen('login');
+    }
+  };
 
   return (
     <header className="main-header">
@@ -36,19 +45,37 @@ const Header = () => {
         />
         {/* 로그인 아이콘과 햄버거를 묶는 컨테이너 추가 */}
         <div className="icon-container">
-          {/* 로그인 아이콘 */}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="27"
-            height="27"
-            fill="currentColor"
-            className="login-icon"
-            viewBox="0 0 16 16"
-            // onClick={toggleLogin}
-            onClick={() => handleFormOpen('login')}
-          >
-            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-          </svg>
+          {/* ✅ 로그인 상태일 때만 사용자 이름 표시 */}
+          {isLoggedIn && username && (
+            <span className="user-name">환영합니다 {username}님</span>
+          )}
+          {/* ✅ 로그인 아이콘과 메뉴를 감싸는 컨테이너 추가 */}
+          <div className="login-menu-container">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="27"
+              height="27"
+              fill="currentColor"
+              className="login-icon"
+              viewBox="0 0 16 16"
+              onClick={handleLoginIconClick}
+            >
+              <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+            </svg>
+
+            {/* ✅ 로그인 상태일 때만 나타나는 메뉴 */}
+            {isLoggedIn && (
+              <div className="dropdown-menu">
+                <Link to="/mypage" className="menu-item">
+                  마이페이지
+                </Link>
+                <a onClick={logout} className="menu-item">
+                  로그아웃
+                </a>
+              </div>
+            )}
+          </div>
+
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="25"

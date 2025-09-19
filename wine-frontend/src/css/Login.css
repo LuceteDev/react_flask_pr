@@ -24,8 +24,7 @@
   font-weight: bold;
   position: relative;
 }
-.close_button_area {
-}
+
 .close-button {
   position: absolute;
   top: 10px;
@@ -79,7 +78,7 @@ h2 {
 .login-button {
   width: 220px;
   padding: 10px;
-  border: none;
+  border: solid 1.5px #a7a7a7;
   background-color: #f0ca50;
   color: #fff;
   cursor: pointer;

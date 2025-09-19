@@ -11,10 +11,13 @@ const FindIdForm = ({ onClose, onFormOpen }) => {
     // 아이디 찾기 로직
     alert('아이디를 찾고 있습니다.');
   };
+  const handleModalContentClick = (e) => {
+    e.stopPropagation();
+  };
 
   return (
-    <section className="login-section">
-      <div className="section_center">
+    <section className="login-section" onClick={onClose}>
+      <div className="section_center" onClick={handleModalContentClick}>
         <button className="close-button" onClick={onClose}>
           &times;
         </button>

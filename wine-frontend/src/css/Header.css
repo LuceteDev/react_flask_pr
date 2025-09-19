@@ -31,14 +31,54 @@
   color: white;
   cursor: pointer;
 }
+.user-name {
+  font-size: 20px;
+}
+/* 로그인 메뉴 컨테이너 위치 설정 */
+.login-menu-container {
+  position: relative;
+  display: inline-block;
+}
+/* 드롭다운 메뉴 스타일 (기본적으로 숨김) */
+.dropdown-menu {
+  position: absolute;
+  top: 100%; /* 아이콘 바로 아래에 위치 */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(255, 255, 255, 0.5); /* 배경색 */
+  border: 1px solid #ccc; /* 경계선 */
+  padding: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+  display: none; /* ✅ 기본적으로 숨김 */
+  flex-direction: column;
+  gap: 5px;
+  border-radius: 10px;
+}
+
+/* 마우스를 올렸을 때 드롭다운 메뉴 표시 */
+.login-menu-container:hover .dropdown-menu {
+  display: flex; /* ✅ 마우스 오버 시 표시 */
+}
+
+/* 메뉴 아이템 스타일 */
+.dropdown-menu .menu-item {
+  color: #333;
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.dropdown-menu .menu-item:hover {
+  /* background-color: #f0f0f0; */
+}
+
+/* 기존 로그인 아이콘 스타일 */
 .login-icon {
-}
-.cart-icon {
-}
-/* 햄버거 버튼 */
-.hamburger {
-  font-size: 2rem;
+  /* 기존 스타일 유지 */
   cursor: pointer;
+  transition: transform 0.3s ease-in-out;
 }
 
 .menu_area {
