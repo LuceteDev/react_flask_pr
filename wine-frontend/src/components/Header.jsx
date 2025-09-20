@@ -4,6 +4,7 @@ import LoginForm from '../components/LoginForm.jsx';
 import SignUpForm from '../components/SignUpForm.jsx';
 import FindIdForm from '../components/FindIdForm.jsx';
 import FindPwForm from '../components/FindPwForm.jsx';
+import MyPageForm from '../components/MyPageForm.jsx';
 import '../css/Header.css';
 import { useAuth } from '../services/AuthContext';
 
@@ -66,9 +67,12 @@ const Header = () => {
             {/* ✅ 로그인 상태일 때만 나타나는 메뉴 */}
             {isLoggedIn && (
               <div className="dropdown-menu">
-                <Link to="/mypage" className="menu-item">
+                <a
+                  onClick={() => handleFormOpen('mypage')}
+                  className="menu-item"
+                >
                   마이페이지
-                </Link>
+                </a>
                 <a onClick={logout} className="menu-item">
                   로그아웃
                 </a>
@@ -93,6 +97,9 @@ const Header = () => {
         {/* isLoginOpen 상태가 true일 때만 LoginForm 렌더링 */}
         {/* {isLoginOpen && <LoginForm onClose={toggleLogin} />} */}
         {/* 조건부 렌더링을 확장하여 모든 폼을 관리 */}
+        {modalForm === 'mypage' && (
+          <MyPageForm onClose={handleFormClose} onFormOpen={handleFormOpen} />
+        )}
         {modalForm === 'login' && (
           <LoginForm onClose={handleFormClose} onFormOpen={handleFormOpen} />
         )}

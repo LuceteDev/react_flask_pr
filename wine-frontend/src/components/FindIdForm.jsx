@@ -46,6 +46,8 @@ const FindIdForm = ({ onClose, onFormOpen }) => {
         </form>
         <div className="additional-links">
           <a onClick={() => onFormOpen('login')}>로그인으로 돌아가기</a>
+          <br />
+          <a onClick={() => onFormOpen('findPw')}>비밀번호 재설정</a>
         </div>
       </div>
     </section>

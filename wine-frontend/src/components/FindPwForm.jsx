@@ -79,6 +79,7 @@ const FindPwForm = ({ onClose, onFormOpen }) => {
         </form>
         <div className="additional-links">
           {/* 로그인 폼으로 돌아가기 */}
+
           <a onClick={() => onFormOpen('login')}>로그인으로 돌아가기</a>
         </div>
       </div>

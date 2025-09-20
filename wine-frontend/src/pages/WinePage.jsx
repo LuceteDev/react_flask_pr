@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// import '../css/wine.css';
 import Header from '../components/Header.jsx';
 import Footer from '../components/Footer.jsx';
 import Section from '../components/Section.jsx';
