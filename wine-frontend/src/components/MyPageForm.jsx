@@ -20,7 +20,8 @@ const MyPageForm = ({ onClose, onFormOpen }) => {
         <hr />
         <div className="input-group">
           <p>
-            <strong>{username}</strong>님, 마이페이지에 오신 것을 환영합니다!
+            <strong>{username}</strong>님, <br />
+            마이페이지에 오신 것을 환영합니다!
           </p>
           {/* 추가적인 사용자 정보 (예: 이름, 이메일)를 표시할 수 있습니다. */}
         </div>

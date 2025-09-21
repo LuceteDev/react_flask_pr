@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../css/login.css';
+
 import { useAuth } from '../services/AuthContext';
 
 const LoginForm = ({ onClose, onFormOpen }) => {
-  const [email, setEmail] = useState('');
+  const [text, settext] = useState('');
   const [password, setPassword] = useState('');
   // 1. loginError 상태를 추가합니다. 초기값은 false
   const [loginError, setLoginError] = useState(false);
@@ -14,7 +15,7 @@ const LoginForm = ({ onClose, onFormOpen }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const success = await login({ email, password });
+    const success = await login({ text, password });
     if (success) {
       // 로그인 성공 시 모달 닫기
       setLoginError(false); // 오류 메시지 초기화
@@ -30,8 +31,8 @@ const LoginForm = ({ onClose, onFormOpen }) => {
   };
 
   // 3. input 값이 변경될 때 loginError를 초기화하는 함수
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
+  const handletextChange = (e) => {
+    settext(e.target.value);
     setLoginError(false);
   };
 
@@ -57,16 +58,16 @@ const LoginForm = ({ onClose, onFormOpen }) => {
             </div>
           )}
           <div className="input-group">
-            <label htmlFor="email">이메일</label>
+            <label htmlFor="email">아이디 | 이메일 | 휴대폰 번호</label>
             <input
-              type="email"
-              id="email"
-              name="email"
+              type="text"
+              id="text"
+              name="text"
               required
-              placeholder="이메일을 입력하세요"
-              value={email}
+              placeholder="아이디 | 이메일 | 휴대폰 번호 중 하나를 입력하세요"
+              value={text}
               // 4. onChange 핸들러를 수정된 함수로 연결
-              onChange={handleEmailChange}
+              onChange={handletextChange}
             />
           </div>
           <div className="input-group">

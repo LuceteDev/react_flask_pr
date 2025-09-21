@@ -52,6 +52,7 @@ init_auth_bp(mysql)
 # url_prefix='/api'를 사용하여 모든 API 엔드포인트가 이 접두사를 갖게 됩니다.
 app.register_blueprint(auth_bp, url_prefix='/api/auth')
 
+
 # 테스트용 기본 라우트
 @app.route('/')
 def hello_world():
