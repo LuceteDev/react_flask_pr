@@ -1,23 +1,42 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import axios from 'axios';
 import '../css/login.css';
 
 const FindPwForm = ({ onClose, onFormOpen }) => {
   const [email, setEmail] = useState('');
-  const [name, setName] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (newPassword !== confirmPassword) {
       alert('새 비밀번호가 일치하지 않습니다.');
       return;
     }
-    // 비밀번호 재설정 로직 (API 호출 등)
-    alert('비밀번호가 성공적으로 재설정되었습니다.');
-    onClose();
+
+    try {
+      const response = await axios.post(
+        'http://localhost:5000/api/auth/reset-pw',
+        {
+          email,
+          new_password: newPassword,
+        }
+      );
+
+      if (response.status === 200) {
+        alert('비밀번호가 성공적으로 재설정되었습니다.');
+        onClose();
+      }
+    } catch (error) {
+      if (error.response) {
+        alert(error.response.data.message);
+      } else {
+        alert('서버와 연결할 수 없습니다.');
+      }
+    }
   };
+
   const handleModalContentClick = (e) => {
     e.stopPropagation();
   };
@@ -40,17 +59,6 @@ const FindPwForm = ({ onClose, onFormOpen }) => {
               placeholder="가입 시 등록한 이메일"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <div className="input-group">
-            <label htmlFor="name">이름</label>
-            <input
-              type="text"
-              id="name"
-              required
-              placeholder="이름을 입력하세요"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
             />
           </div>
           <div className="input-group">

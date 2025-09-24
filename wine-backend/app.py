@@ -43,7 +43,8 @@ app.config['MYSQL_CURSORCLASS'] = 'DictCursor' # 데이터를 딕셔너리 형�
 mysql = MySQL(app)
 
 # ✅ React 개발 서버(5173)에서 오는 요청 허용
-CORS(app, resources={r"/auth/*": {"origins": "http://localhost:5173"}})
+# CORS(app, resources={r"/auth/*": {"origins": "http://localhost:5173"}})
+CORS(app, resources={r"/api/auth/*": {"origins": "http://localhost:5173"}})
 
 # 2. MySQL 객체를 블루프린트에 주입합니다.
 init_auth_bp(mysql)

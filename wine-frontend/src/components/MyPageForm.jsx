@@ -27,8 +27,8 @@ const MyPageForm = ({ onClose, onFormOpen }) => {
         </div>
         <div className="additional-links">
           {/* onFormOpen 함수를 사용하여 폼 전환 */}
-          <a onClick={() => onFormOpen('findId')}>이메일 찾기</a> |
-          <a onClick={() => onFormOpen('findPw')}>비밀번호 재설정</a>
+          <a onClick={() => onFormOpen('findId')}>이메일 찾기 </a>|
+          <a onClick={() => onFormOpen('findPw')}> 비밀번호 재설정</a>
         </div>
       </div>
     </section>
